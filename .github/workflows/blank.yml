@@ -28,10 +28,8 @@ jobs:
 
       - name: Download Playit.gg
         run: |
-          curl -SsL https://playit-cloud.github.io/ppa/key.gpg | sudo gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/playit.gpg >/dev/null
-          echo "deb https://playit-cloud.github.io/ppa/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/playit-cloud.list
-          sudo apt update
-          sudo apt install playit
+          curl -Lo playit https://github.com/playit-cloud/playit-agent/releases/latest/download/playit-linux-amd64
+          chmod +x playit
 
       - name: Run Minecraft Server and Playit
         env:
@@ -47,9 +45,9 @@ jobs:
           java -Xms4G -Xmx4G -jar spigot.jar nogui &
           SPIGOT_PID=$!
 
-          # تشغيل Playit.gg باستخدام السر المخزّن
+          # تشغيل Playit.gg باستخدام الملف التنفيذي والسر المخزّن
           echo "Starting Playit.gg Tunnel..."
-          playit --secret "${PLAYIT_SECRET}" &
+          ./playit --secret "${PLAYIT_SECRET}" &
           PLAYIT_PID=$!
 
           # ابقِ الـ Workflow حياً
