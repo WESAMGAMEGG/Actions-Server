@@ -45,9 +45,9 @@ jobs:
           java -Xms4G -Xmx4G -jar spigot.jar nogui &
           SPIGOT_PID=$!
 
-          # تشغيل Playit.gg باستخدام الملف التنفيذي والسر المخزّن
+          # تشغيل Playit.gg باستخدام وضع التشغيل المباشر run والسر المخزّن
           echo "Starting Playit.gg Tunnel..."
-          ./playit --secret "${PLAYIT_SECRET}" &
+          ./playit --secret "${PLAYIT_SECRET}" run &
           PLAYIT_PID=$!
 
           # ابقِ الـ Workflow حياً
